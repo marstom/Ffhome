@@ -19,12 +19,32 @@ class CategoriesListAPIView(generics.ListCreateAPIView):
     serializer_class = serializers.CategorySerialzer
 
     class Meta:
-        ordering = ('name', )
+        ordering = ('name',)
 
 
-    # def list(self, request):
-    #     # Note the use of `get_queryset()` instead of `self.queryset`
-    #     queryset = self.get_queryset()
-    #     serializer = serializers.CategorySerialzer(queryset, many=True)
-    #     return Response(serializer.data)
+class CategoryCrudView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Category.objects.all()
+    serializer_class = serializers.CategorySerialzer
 
+    class Meta:
+        ordering = ('name',)
+
+
+class DateEntrysListView(generics.ListCreateAPIView):
+    queryset = models.DateEntry.objects.all()
+    serializer_class = serializers.DateEntrySerialzer
+
+
+class DateEntrysCrud(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.DateEntry.objects.all()
+    serializer_class = serializers.DateEntrySerialzer
+
+
+class CostsListView(generics.ListCreateAPIView):
+    queryset = models.CostItem.objects.all()
+    serializer_class = serializers.CostItemSerializer
+
+
+class CostsCrudView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.CostItem.objects.all()
+    serializer_class = serializers.CostItemSerializer
