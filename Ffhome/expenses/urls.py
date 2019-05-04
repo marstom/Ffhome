@@ -3,6 +3,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    path('', views.api_root, name='root'),
     path('categories/', views.CategoriesListAPIView.as_view(), name='categories'),
     path('categories/<int:pk>/', views.CategoryCrudView.as_view(), name='category'),
     path('costs/', views.CostsListView.as_view(), name='costs'),
