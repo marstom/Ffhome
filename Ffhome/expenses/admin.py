@@ -2,17 +2,22 @@ from django.contrib import admin
 from . import models
 
 admin.site.register(models.DateEntry)
-admin.site.register(models.Item)
 
 
+class CostItemInline(admin.TabularInline):
+    model = models.CostItem
 
-class ItemInline(admin.TabularInline):
-    model = models.Item
+
+class IncomeItemInline(admin.TabularInline):
+    model = models.IncomeItem
+
 
 class DateEntryInline(admin.TabularInline):
     model = models.DateEntry
 
+
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
     model = models.Category
-    inlines = [ItemInline]
+    inlines = [CostItemInline, IncomeItemInline]
+

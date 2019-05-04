@@ -30,7 +30,8 @@ ALLOWED_HOSTS = ['*']
 
 
 LOCAL_APPS = [
-    'expenses'
+    'expenses',
+    'core'
 ]
 
 INSTALLED_APPS = [
