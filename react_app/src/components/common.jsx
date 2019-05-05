@@ -10,7 +10,7 @@ export class LoadingThenDisplay extends React.Component {
     }
     render() {
         let loaded = null
-        if (this.props.data){
+        if (this.props.data && this.props.data !== 'null'){
             loaded = (
                 <div>
                     {this.props.data}
