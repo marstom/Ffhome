@@ -4,16 +4,35 @@ import axios from "axios"
 export class CostsTable extends React.Component {
     constructor() {
         super()
-        this.state = {'data': []}
+        this.state = {
+            'costs': [],
+            'categories': [],
+            'dates': [],
+        }
     }
 
     read_data = async () => {
-        let axi = await axios.get('http://localhost:8000/api/v1/costs/')
-        let data = await axi.data
+        let api_root = await axios.get('http://localhost:8000/api/v1/')
+        let api_root_urls = await api_root.data
+
+
+        let costs = await axios.get(api_root_urls['costs'])
+        let costs_data = await costs.data
+
+        let categories = await axios.get(api_root_urls['categories'])
+        let categories_data = await categories.data
+
+        let dates = await axios.get(api_root_urls['dates'])
+        let dates_data = await dates.data
+
+
+
         this.setState({
-            data: data
+            costs: costs_data,
+            categories: categories_data,
+            dates: dates_data
         })
-        return data
+        return categories_data
     }
 
     componentDidMount() {
@@ -22,14 +41,32 @@ export class CostsTable extends React.Component {
 
     create_list() {
         let data = []
-        data = this.state.data
+        data = this.state.costs
         let list = []
         data.forEach(el => {
-            console.log(el)
+
+            let category = this.state.categories.find(cat => {
+                return cat.pk === el.category
+            })
+
+            let cat_name = '-'
+            if (category){
+                cat_name = category.name
+            }
+
+            let dates = this.state.dates.find(dat => {
+                return dat.pk === el.date
+            })
+
+            let date_str = '-'
+            if(dates){
+                date_str = dates.date
+            }
+
             list.push(
                 <tr key={el.pk}>
-                    <td>{el.date}</td>
-                    <td>{el.category}</td>
+                    <td>{date_str}</td>
+                    <td>{cat_name}</td>
                     <td>{el.name}</td>
                     <td>{el.value}</td>
                     <td>X</td>
@@ -61,7 +98,6 @@ export class CostsTable extends React.Component {
 
         return (
             <div>
-                {/*<LoadingThenDisplay data={JSON.stringify(this.state.data)}/>*/}
                 {list}
             </div>
         )

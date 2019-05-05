@@ -3,7 +3,6 @@
 *
 * */
 import React from 'react';
-import axios from 'axios';
 import { CostsTable } from './components/cost_table'
 import './App.css';
 

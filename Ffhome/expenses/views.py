@@ -18,7 +18,7 @@ import time
 
 @api_view(['GET'])
 def api_root(request, format=None):
-    time.sleep(3)
+    # time.sleep(3)
     return Response({
         'categories': reverse('categories', request=request, format=format),
         'dates': reverse('dates', request=request, format=format),
