@@ -6,10 +6,9 @@ import React from 'react';
 import { CostsTable } from './components/cost_table'
 import CostAdd from './components/cost_add'
 import Home from './components/home'
-import './App.css';
-import './index.css'
 import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.css';
+import bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import styles from './App.css';
 
 function HomeView(){
     return (
