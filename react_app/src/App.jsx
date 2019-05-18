@@ -7,7 +7,7 @@ import { CostsTable } from './components/cost_table'
 import CostAdd from './components/cost_add'
 import Home from './components/home'
 import PlotComponent from './components/plot'
-import BarPlotComponent from './components/bar_plot'
+import BarPlotComponent from './components/bar_plot_sample'
 import {BrowserRouter as Router, Route, NavLink} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
