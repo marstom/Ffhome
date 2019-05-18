@@ -1,6 +1,14 @@
 import React from "react"
 import axios from "axios"
 
+
+const getParams = (param) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get(param);
+    return myParam
+
+}
+
 export class CostsTable extends React.Component {
     constructor() {
         super()
@@ -39,10 +47,20 @@ export class CostsTable extends React.Component {
         this.read_data()
     }
 
+    removeEl = (el) =>{
+        const pk = el.target.value
+        axios.delete(`http://localhost:8000/api/v1/costs/${pk}`)
+            .then(response =>{
+                console.log(response)
+                this.read_data()
+            })
+    }
+
     create_list() {
         let data = []
         data = this.state.costs
         let list = []
+        let remove = getParams('remove')
         data.forEach(el => {
 
             let category = this.state.categories.find(cat => {
@@ -63,19 +81,35 @@ export class CostsTable extends React.Component {
                 date_str = dates.date
             }
 
-            list.push(
-                <tr key={el.pk}>
-                    <td>{date_str}</td>
-                    <td>{cat_name}</td>
-                    <td>{el.name}</td>
-                    <td>{el.value}</td>
-                    <td>X</td>
-                </tr>)
+            if(remove){
+                list.push(
+                    <tr key={el.pk}>
+                        <td>{date_str}</td>
+                        <td>{cat_name}</td>
+                        <td>{el.name}</td>
+                        <td>{el.value}</td>
+                        <td><button
+                            className="btn-sm btn-link"
+                            value={el.pk}
+                            onClick={this.removeEl}
+                        >X</button></td>
+                    </tr>)
+
+            }else{
+                list.push(
+                    <tr key={el.pk}>
+                        <td>{date_str}</td>
+                        <td>{cat_name}</td>
+                        <td>{el.name}</td>
+                        <td>{el.value}</td>
+                        <td></td>
+                    </tr>)
+            }
         })
         return (
             <table>
                 <thead>
-                <tr>
+                <tr key="header">
                     <th>Date</th>
                     <th>Category</th>
                     <th>Name</th>
@@ -98,7 +132,10 @@ export class CostsTable extends React.Component {
 
         return (
             <div>
-                {list}
+                <div>
+                    {list}
+                </div>
+
             </div>
         )
     }
